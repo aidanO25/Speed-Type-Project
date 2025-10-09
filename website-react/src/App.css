@@ -1,0 +1,149 @@
+.main-aspect {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 85px 24px 24px 24px; /* top padding for fixed heading */
+  box-sizing: border-box;
+}
+
+h1 { 
+  font-family: "Trebuchet MS", Helvetica, sans-serif; 
+  text-align: center; 
+  margin: 0;
+  font-size: 45px;
+  
+}
+
+.my-box { 
+  width: 500px; 
+  background: #e3e3e3;
+  border: 2px solid #6e6d6d; 
+  padding: 15px; 
+  box-sizing: border-box; 
+  border-radius: 8px; 
+  border-color: #007bff;
+
+
+  /* Flexibly size with respect to screen width */
+  width: 100%;              /* Take up full available width */
+  max-width: 700px;         /* Don’t stretch beyond 700px */
+  min-width: 300px;         /* Don’t shrink smaller than 300px */
+
+  white-space: pre-wrap;   /* <- show \n as line breaks, keep spaces */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+}
+
+
+/* work on the long load speed when switching between .signIn and .singIn--large */
+/* ---------------- Base sign-in box ---------------- */
+.signIn {
+  width: 400px;
+  height: 400px;
+  background-color: rgba(0, 0, 0, 0.218);
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Expanded version for sign-up mode */
+.signIn--large {
+  width: 450px;
+  height: 450px;
+}
+
+/* ---------------- Form List ---------------- */
+.profileList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Shared styles for inputs and buttons */
+.profileList input,
+.profileList button {
+  width: 250px;
+  margin: 3px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none; /* Safari fix */
+}
+
+/* Specific: text inputs only */
+.profileList input[type="text"],
+.profileList input[type="email"],
+.profileList input[type="password"] {
+  background-color: white;
+}
+
+/* Specific: submit button */
+.profileList input[type="button"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.profileList input[type="button"]:hover {
+  background-color: #0056b3;
+}
+  
+
+.accountCreate {
+  font-family: "Trebuchet MS", Helvetica, sans-serif; 
+  padding-top: 20px;
+}
+
+.accountCreateButton {
+
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+
+
+/* THIS SECTION PERTAINS TO STYLING FOR CHARACTERS DURING TYPING TEST */
+.correct { color: green; }
+.incorrect { color: red; }
+.current { text-decoration: underline; }
+
+.space-error {
+  display: inline-block;
+  width: 10px;
+  height: 15px;
+  background-color: rgba(255, 0, 0, 0.579);
+  border-radius: 2px;
+  margin: 0 1px;
+  vertical-align: middle;
+}
+
+.newline-block {
+  display: block;
+  height: 1.2em;
+  font-family: inherit;
+}
+
+.current-newline {
+  background-color: rgba(0, 0, 255, 0.1);
+}
+
+.incorrect-newline {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+
+/*
