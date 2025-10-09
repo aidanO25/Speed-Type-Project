@@ -6,7 +6,7 @@ export default function TypingTest() {
   // for navigation to results
   const navigate = useNavigate()
 
-  // hold snipet + loading/error
+  // useState variables
   const [snippet, setSnippet] = useState(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null); 
@@ -28,53 +28,57 @@ export default function TypingTest() {
     [targetText]                // chars only recalculates if targetText changes
   );
 
-  /* State hooks (React remembers these between re-renders)
-     const [value, setValue] = useState(initialValue);
-  */
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [typed, setTyped] = useState([]);
   const [totalChars, setTotalChars] = useState(0);
 
-  //front end funciton to fetch a code snippet
-  async function language() {
+  //front end function to fetch a code snippet
+  async function languageChange(selectedLang) {
     try {
       setLoading(true);
       setErr(null);
-      const res = await fetch("http://127.0.0.1:8000/snippets/language?language=python");
+
+      // prefer the passed-in value, otherwise use current state
+      const lang = typeof selectedLang === "string" ? selectedLang : language;
+
+      const res = await fetch(
+        `http://127.0.0.1:8000/snippets/language?language=${encodeURIComponent(lang)}`
+      );
       if (!res.ok) throw new Error("Failed to fetch snippet");
-      const data = await res.json();       // { id, language, content }
+      const data = await res.json();
+
       setSnippet(data);
-      // reset typing state for the new text
       setTyped([]);
       setCurrentIndex(0);
-      setTotalChars(data.snippet.length); 
-    } 
-    catch (e) 
-    {
+      setTotalChars(data.snippet.length);
+    } catch (e) {
       console.error(e);
       setErr(String(e));
     } finally {
       setLoading(false);
     }
-
-  
-    
   }
 
-  /*
-    - This is where we are going to attempt to build a funciton to retieve information 
-      about the number of correct and incorrect characters
-    - ----------
-
-    async function loadCorrect() {
-      try { // This allows us to catch a load/fetch err
-        setLoading(true)
-      }
-    }
-  */
+  // LOGIC FOR CHANGING THE SNIPET LANGUAGE 
+  const [language, setLanguage] = useState("python"); // select language (python default)
+  // logic for the language select button
+  let buttonText;
+  if (loading) {
+    buttonText = "Loading...";
+  } else {
+    buttonText = "load new";
+  }
 
   // fetch once on mount
-  useEffect(() => { language(); }, []);
+  useEffect(() => { languageChange(); }, []);
+
+  // loads a new snipet when a user selects a new language
+  const handleLanguageChange = (e) => {
+    const selectedLang = e.target.value;
+    setLanguage(selectedLang);
+    languageChange(selectedLang); // immediately fetch new for this language
+  }
 
 
   // logic for deciding what char the user is on, and if they got it correct or incorrect
@@ -101,6 +105,8 @@ export default function TypingTest() {
       ]);
       if (scrollKeys.has(e.key)) e.preventDefault();
 
+
+      /* -------------- SPECIAL KEY HANDLING-------------- */
       // handle Backspace
       if (e.key === "Backspace") {
         if (currentIndex > 0) {
@@ -204,12 +210,6 @@ export default function TypingTest() {
 
 
 
-
-
-
-
-  
-
   /*
     - re-render UI
     - map over each character and render it as a <span>
@@ -221,10 +221,7 @@ export default function TypingTest() {
     <>
       <h1>Coding Speed Test</h1>
 
-      <button onClick={language} disabled={loading} style={{ marginBottom: 12 }}>
-        {loading ? "Loading…" : "python"}
-      </button>
-
+      {/* -------------- TYPING AREA-------------- */}
       <div className="my-box">
         {chars.map((char, i) => {
 
@@ -251,9 +248,7 @@ export default function TypingTest() {
             );
           }
 
-
-
-
+          {/* Typing logic */}
           if (i === currentIndex) {
             cls = "current";
           } else if (typed[i] !== undefined) {
@@ -276,8 +271,30 @@ export default function TypingTest() {
             </span>
           );
         })}
+      </div>
 
-        
+      {/* -------------- USER OPTIONS-------------- */}
+      < div className = "option-row">
+        {/* Load langauge buton */}
+        <button 
+          onClick={() => languageChange()} 
+          disabled={loading} 
+          className="new-snippet-button">
+            {buttonText}
+        </button>
+
+        {/* Language selector */}
+        <select 
+          value = {language}
+          onChange={handleLanguageChange}
+          disabled = {loading}
+          className="new-snippet-button"
+
+        >
+          <option value = "python">Python</option>
+          <option value = "java">Java</option>
+          <option value = "plain">Plain</option>
+        </select>
       </div>
 
       {err && <div style={{ marginTop: 8, color: "red" }}>{err}</div>}

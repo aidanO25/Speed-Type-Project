@@ -114,6 +114,27 @@ h1 {
 }
 
 
+/* OPTION BUTTON STYLING */
+.option-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* spacing between the button and select */
+  margin-top: 12px;
+}
+
+.new-snippet-button {
+  margin-Bottom: 12;
+  padding: 8px 16px;
+  border-Radius: 6px;
+  border: 1px solid #aaa;
+  background: #007BFF;
+  color: white;
+  cursor: pointer;
+}
+
+
+
 
 
 /* THIS SECTION PERTAINS TO STYLING FOR CHARACTERS DURING TYPING TEST */
