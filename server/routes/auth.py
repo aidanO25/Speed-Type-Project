@@ -5,7 +5,7 @@ from db import ENGINE
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
-@router.get("/authenticate")
+@router.get("/")
 def test_auth_route():
     return {"message": "Authentication route working!"}
 

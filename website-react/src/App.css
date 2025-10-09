@@ -97,7 +97,7 @@ h1 {
 }
 
 .profileList input[type="button"]:hover {
-  background-color: #0056b3;
+  background-color: #0168d6;
 }
   
 
@@ -126,12 +126,19 @@ h1 {
 .new-snippet-button {
   margin-Bottom: 12;
   padding: 8px 16px;
-  border-Radius: 6px;
+  border-Radius: 5px;
   border: 1px solid #aaa;
   background: #007BFF;
   color: white;
   cursor: pointer;
 }
+
+.new-snippet-button:hover {
+  background-color: #0168d6;
+}
+
+
+
 
 
 

@@ -48,7 +48,7 @@ export default function signIn() {
                 <input type="text" placeholder="Username" />
             </li>
             <li>
-                <input type="text" placeholder="Password"/>
+                <input type="password" placeholder="Password"/>
             </li>
 
             {extraFields}
@@ -58,16 +58,41 @@ export default function signIn() {
                     type="button"
                     value={submitButtonText}
                     onClick={async () => {
+
                         const username = document.querySelector('input[placeholder="Username"]').value;
                         const password = document.querySelector('input[placeholder="Password"]').value;
 
-                        const res = await fetch("http://127.0.0.1:8000/auth", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ username, password }),
-                        });
+                        let res;
+
+
+                        // if the user is creating an account
+                        if(isSignUp) {
+                            const email = document.querySelector('input[placeholder="Email"]').value;
+                            const vPassword = document.querySelector('input[placeholder="Verify password"]').value
+
+                            if (password != vPassword) {
+                                alert("❌ Passwords do not match");
+                                return;
+                            }
+                            
+                            res = await fetch("http://127.0.0.1:8000/createAcc", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({ username, password, email}),
+                            });
+                        } else { // otherwise sign the existing user in
+                            res = await fetch("http://127.0.0.1:8000/auth", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ username, password }),
+                            });
+                        }
+
+                        
 
                         const data = await res.json();
 
