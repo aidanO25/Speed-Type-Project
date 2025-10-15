@@ -43,7 +43,7 @@ export default function TypingTest() {
       const lang = typeof selectedLang === "string" ? selectedLang : language;
 
       const res = await fetch(
-        `http://127.0.0.1:8000/snippets/language?language=${encodeURIComponent(lang)}`
+        `http://127.0.0.1:8000/snippets/language?language=${encodeURIComponent(lang)}&difficulty=${difficulty}`
       );
       if (!res.ok) throw new Error("Failed to fetch snippet");
       const data = await res.json();
@@ -62,6 +62,8 @@ export default function TypingTest() {
 
   // LOGIC FOR CHANGING THE SNIPET LANGUAGE 
   const [language, setLanguage] = useState("python"); // select language (python default)
+  const [difficulty, setDifficulty] = useState("all") // select the difficulty (default to any)
+  
   // logic for the language select button
   let buttonText;
   if (loading) {
@@ -79,6 +81,34 @@ export default function TypingTest() {
     setLanguage(selectedLang);
     languageChange(selectedLang); // immediately fetch new for this language
   }
+
+  // CHANGES THE SNIPPET DIFFICULTY LEVEL
+  useEffect(() => {
+  async function fetchByDifficulty() {
+    try {
+      setLoading(true);
+      setErr(null);
+
+      const res = await fetch(
+        `http://127.0.0.1:8000/snippets/alterDifficulty?difficulty=${difficulty}&language=${language}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch snippet");
+      const data = await res.json();
+
+      setSnippet(data); // full object
+      setCurrentIndex(0);
+      setTyped([]);
+      setTotalChars(data.snippet.length);
+    } catch (e) {
+      console.error(e);
+      setErr(String(e));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  fetchByDifficulty();
+}, [difficulty]);
 
 
   // logic for deciding what char the user is on, and if they got it correct or incorrect
@@ -275,26 +305,65 @@ export default function TypingTest() {
 
       {/* -------------- USER OPTIONS-------------- */}
       < div className = "option-row">
-        {/* Load langauge buton */}
-        <button 
-          onClick={() => languageChange()} 
-          disabled={loading} 
-          className="new-snippet-button">
-            {buttonText}
-        </button>
 
-        {/* Language selector */}
-        <select 
-          value = {language}
-          onChange={handleLanguageChange}
-          disabled = {loading}
-          className="new-snippet-button"
+              {/* LOAD SNIPPET BUTTON */}
+              <button 
+                onClick={() => {
+                  setLoading(true);
+                  fetch(`http://127.0.0.1:8000/snippets/alterDifficulty?difficulty=${difficulty}&language=${language}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                      setSnippet(data); // <- full object
+                      setLanguage(data.language);
+                      setCurrentIndex(0);
+                      setTyped([]);
+                      setTotalChars(data.snippet.length);
+                    })
+                    .catch((err) => setErr(String(err)))
+                    .finally(() => setLoading(false));
+                }}
+                disabled={loading}
+                className="snippet-options"
+              >
+                {buttonText}
+              </button>
 
-        >
-          <option value = "python">Python</option>
-          <option value = "java">Java</option>
-          <option value = "plain">Plain</option>
-        </select>
+
+              {/* LANGUAGE SELECT */}
+              <select 
+                value = {language}
+                onChange={handleLanguageChange}
+                disabled = {loading}
+                className="snippet-options"
+
+              >
+                <option value = "python">Python</option>
+                <option value = "java">Java</option>
+                <option value = "plain">Plain</option>
+              </select>
+
+
+              {/* DIFFICULTY SELECT */}
+              <select 
+                className="snippet-options"
+                value = {difficulty}
+                disabled = {loading}
+                onChange = {(e) => setDifficulty(e.target.value)}
+              >
+                <option value = "all">Any Level</option>
+                <option value = "1">Lv 1</option>
+                <option value = "2">Lv 2</option>
+                <option value = "3">Lv 3</option>
+                <option value = "4">Lv 4</option>
+                <option value = "5">Lv 5</option>
+                <option value = "6">Lv 6</option>
+                <option value = "7">Lv 7</option>
+                <option value = "8">Lv 8</option>
+                <option value = "9">Lv 9</option>
+                <option value = "10">Lv 10</option>
+
+              </select>
+
       </div>
 
       {err && <div style={{ marginTop: 8, color: "red" }}>{err}</div>}

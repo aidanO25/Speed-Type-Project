@@ -123,7 +123,7 @@ h1 {
   margin-top: 12px;
 }
 
-.new-snippet-button {
+.snippet-options {
   margin-Bottom: 12;
   padding: 8px 16px;
   border-Radius: 5px;
@@ -133,7 +133,7 @@ h1 {
   cursor: pointer;
 }
 
-.new-snippet-button:hover {
+.snippet-options:hover {
   background-color: #0168d6;
 }
 
