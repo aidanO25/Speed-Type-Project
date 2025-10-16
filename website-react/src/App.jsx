@@ -1,9 +1,10 @@
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 /* ---------------- imported pages ------------------- */
-import Profile from "./pages/signIn.jsx";
+import SignIn from "./pages/signIn.jsx";
 import Results from "./pages/results.jsx";
 import TypingTest from "./pages/typingTest.jsx";
+import Profile from "./pages/userProfile.jsx";
 
 // declaring a React component (whatever return(...) contains will be rendered to the screen)
 export default function App() {
@@ -36,8 +37,9 @@ export default function App() {
       <div className="main-aspect">
           <Routes>
             <Route path="/" element={<TypingTest />} /> 
-            <Route path="/signIn" element={<Profile />} />
+            <Route path="/signIn" element={<SignIn />} />
             <Route path="/results" element={<Results />} />
+            <Route path="userProfile" element={<Profile />} />
           </Routes>
       </div>
     </>

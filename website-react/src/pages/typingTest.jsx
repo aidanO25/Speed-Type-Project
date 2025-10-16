@@ -351,16 +351,9 @@ export default function TypingTest() {
                 onChange = {(e) => setDifficulty(e.target.value)}
               >
                 <option value = "all">Any Level</option>
-                <option value = "1">Lv 1</option>
-                <option value = "2">Lv 2</option>
-                <option value = "3">Lv 3</option>
-                <option value = "4">Lv 4</option>
-                <option value = "5">Lv 5</option>
-                <option value = "6">Lv 6</option>
-                <option value = "7">Lv 7</option>
-                <option value = "8">Lv 8</option>
-                <option value = "9">Lv 9</option>
-                <option value = "10">Lv 10</option>
+                <option value = "easy">easy</option>
+                <option value = "medium">medium</option>
+                <option value = "hard">hard</option>
 
               </select>
 

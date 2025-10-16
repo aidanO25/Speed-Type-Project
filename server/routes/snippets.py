@@ -60,7 +60,7 @@ def difficultyLv(
                 ORDER BY RAND()
                 LIMIT 1
             """)
-            params = {"difficulty": int(difficulty), "language": language}
+            params = {"difficulty": difficulty, "language": language}
         else:
             sql = text("""
                 SELECT id, language, snippet
@@ -70,7 +70,7 @@ def difficultyLv(
                 ORDER BY RAND()
                 LIMIT 1
             """)
-            params = {"difficulty": int(difficulty)}
+            params = {"difficulty": difficulty}
     else:
         if language:
             sql = text("""

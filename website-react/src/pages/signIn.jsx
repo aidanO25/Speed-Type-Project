@@ -1,5 +1,6 @@
 // src/pages/Profile.jsx
 import { useState  } from "react";
+import { useNavigate } from "react-router-dom"; //page navigation capability (use for navigating to the profile page)
 
 export default function signIn() {
     const [isSignUp, setIsSignUp] = useState(false)
@@ -64,7 +65,6 @@ export default function signIn() {
 
                         let res;
 
-
                         // if the user is creating an account
                         if(isSignUp) {
                             const email = document.querySelector('input[placeholder="Email"]').value;
@@ -91,9 +91,6 @@ export default function signIn() {
                             body: JSON.stringify({ username, password }),
                             });
                         }
-
-                        
-
                         const data = await res.json();
 
                         if (res.ok) {
