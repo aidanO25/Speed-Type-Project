@@ -3,6 +3,9 @@ import { useState  } from "react";
 import { useNavigate } from "react-router-dom"; //page navigation capability (use for navigating to the profile page)
 
 export default function signIn() {
+    // for navigating to the profile page once signed in
+    const navigate = useNavigate()
+
     const [isSignUp, setIsSignUp] = useState(false)
 
     let signInClass = "signIn" // base class
@@ -94,9 +97,11 @@ export default function signIn() {
                         const data = await res.json();
 
                         if (res.ok) {
-                        alert(`✅ ${data.message}`);
-                        } else {
-                        alert(`❌ ${data.detail}`);
+                            alert(`✅ ${data.message}`);
+                            navigate("/userProfile"); // TAKE THE USER TO THE PROFILE PAGE ONCE SIGN IN SUCCESS
+                        } 
+                        else {
+                            alert(`❌ ${data.detail}`);
                         }
                     }}
                 />
