@@ -18,3 +18,14 @@ body {
   border-bottom: 3px solid #007bff;
 }
 
+.left-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* space between icons */
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}

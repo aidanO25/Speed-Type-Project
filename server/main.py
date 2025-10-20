@@ -2,6 +2,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import snippets_router, auth_router, createAcc_router
+import logging
+
+# for setting logging levels
+logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
+
 
 app = FastAPI()
 

@@ -31,10 +31,9 @@ export default function TypingTest() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [typed, setTyped] = useState([]);
-  const [totalChars, setTotalChars] = useState(0);
 
-  //front end function to fetch a code snippet
-  async function languageChange(selectedLang) {
+  // FUNCTION TO FETCH A SNIPPET 
+  async function loadSnippet(selectedLang) {
     try {
       setLoading(true);
       setErr(null);
@@ -51,7 +50,6 @@ export default function TypingTest() {
       setSnippet(data);
       setTyped([]);
       setCurrentIndex(0);
-      setTotalChars(data.snippet.length);
     } catch (e) {
       console.error(e);
       setErr(String(e));
@@ -73,13 +71,13 @@ export default function TypingTest() {
   }
 
   // fetch once on mount
-  useEffect(() => { languageChange(); }, []);
+  useEffect(() => { loadSnippet(); }, []);
 
-  // loads a new snipet when a user selects a new language
+  // CHANGES THE SNIPPET PROGRAMMING LANGUAGE AND LOADS A NEW SNIPPET
   const handleLanguageChange = (e) => {
     const selectedLang = e.target.value;
     setLanguage(selectedLang);
-    languageChange(selectedLang); // immediately fetch new for this language
+    loadSnippet(selectedLang); // immediately fetch new for this language
   }
 
   // CHANGES THE SNIPPET DIFFICULTY LEVEL
@@ -98,7 +96,6 @@ export default function TypingTest() {
       setSnippet(data); // full object
       setCurrentIndex(0);
       setTyped([]);
-      setTotalChars(data.snippet.length);
     } catch (e) {
       console.error(e);
       setErr(String(e));
@@ -249,7 +246,7 @@ export default function TypingTest() {
 
   return (
     <>
-      <h1>Coding Speed Test</h1>
+      <h1>DevType</h1>
 
       {/* -------------- TYPING AREA-------------- */}
       <div className="my-box">
@@ -317,7 +314,6 @@ export default function TypingTest() {
                       setLanguage(data.language);
                       setCurrentIndex(0);
                       setTyped([]);
-                      setTotalChars(data.snippet.length);
                     })
                     .catch((err) => setErr(String(err)))
                     .finally(() => setLoading(false));

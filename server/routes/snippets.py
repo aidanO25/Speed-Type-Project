@@ -103,3 +103,5 @@ def difficultyLv(
         "language": row["language"],
         "snippet": row["snippet"]
     }
+
+snippets_router = router
