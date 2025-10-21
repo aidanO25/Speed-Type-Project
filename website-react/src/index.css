@@ -15,7 +15,7 @@ body {
   justify-content: space-between; /* push first child left, second right */
   padding: 0 12px;  
   box-sizing: border-box;  
-  border-bottom: 3px solid #007bff;
+  border-bottom: 4px solid #007bff;
 }
 
 .left-icons {

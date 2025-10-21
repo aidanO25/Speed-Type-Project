@@ -14,14 +14,14 @@ export default function Results() {
 
   return (
     <>
-      <div className="my-box">
+      <section className="my-box">
         <h1>Results</h1>
 
         <p>Total characters: {totalChars}</p>
         <p>Correct: {correct}</p>
         <p>Incorrect: {incorrect}</p>
         <p>Total time: {completionTime}ms</p>
-      </div>
+      </section>
 
       {/* section to allow a user to sign in to save results */}
       <p style={{ marginTop: "20px", fontSize: "16px" }}>

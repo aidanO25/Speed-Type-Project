@@ -42,41 +42,44 @@ h1 {
 /* ---------------- Base sign-in box ---------------- */
 .signIn {
   width: 400px;
-  height: 400px;
   background-color: rgba(0, 0, 0, 0.218);
   border-radius: 15px;
-
+  padding: 25px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
 }
 
-/* Expanded version for sign-up mode */
 .signIn--large {
   width: 450px;
-  height: 450px;
+  padding: 35px 25px;
 }
 
 /* ---------------- Form List ---------------- */
 .profileList {
-  list-style: none;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   margin: 0;
+  padding: 0;
 }
 
-/* Shared styles for inputs and buttons */
+/* Inputs and buttons inside form */
 .profileList input,
 .profileList button {
   width: 250px;
-  margin: 3px;
+  margin: 5px 0;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
   box-sizing: border-box;
   appearance: none;
-  -webkit-appearance: none; /* Safari fix */
+  -webkit-appearance: none;
 }
 
 /* Specific: text inputs only */
@@ -86,8 +89,7 @@ h1 {
   background-color: white;
 }
 
-/* Specific: submit button */
-.profileList input[type="button"] {
+.profileList button[type="submit"] {
   background-color: #007bff;
   color: white;
   border: none;
@@ -96,7 +98,7 @@ h1 {
   transition: background-color 0.2s ease;
 }
 
-.profileList input[type="button"]:hover {
+.profileList button[type="submit"]:hover {
   background-color: #0168d6;
 }
   

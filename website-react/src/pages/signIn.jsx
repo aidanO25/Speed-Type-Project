@@ -1,156 +1,165 @@
-// src/pages/Profile.jsx
-import { useState  } from "react";
-import { useNavigate } from "react-router-dom"; //page navigation capability (use for navigating to the profile page)
+// src/pages/SignIn.jsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function signIn() {
+export default function SignIn() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()// for navigating to the profile page once signed in
-    const [isSignUp, setIsSignUp] = useState(false) // to figure out if a user is looking to create an account or not
+  // FORM STATE
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-    let title;
-    let extraFields = null;
-    let submitButtonText; 
-    let toggleExistingAccText;
-    let toggleButtonText;
 
-    let signInClass = "signIn" // base case
-    if (isSignUp) {
-        signInClass += " signIn--large"; // add a modifer when in sign-up mode
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setErrorMessage("");
+
+    try {
+        // user is looking to create an account
+        if (isSignUp) {
+
+            if (password !== verifyPassword) {
+                setErrorMessage("❌ Passwords do not match");
+                return;
+            }
+
+            // CREATE ACCOUNT
+            const result = await fetch("http://127.0.0.1:8000/createAcc", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password, email }),
+            });
+
+            const createData = await result.json();
+            if (!result.ok) throw new Error(createData.detail || "Signup failed");
+
+            // AUTO LOGIN ONCE ACCOUNT CREATED
+            const loginRes = await fetch("http://127.0.0.1:8000/auth/token", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const loginData = await loginRes.json();
+            if (!loginRes.ok) throw new Error(loginData.detail || "Login failed");
+
+            localStorage.setItem("access_token", loginData.access_token);
+            localStorage.setItem("username", username);
+            navigate("/userProfile");
+        } 
+        // REGULAR LOGIN
+        else {
+            const res = await fetch("http://127.0.0.1:8000/auth/token", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.detail || "Invalid credentials");
+
+            localStorage.setItem("access_token", data.access_token);
+            localStorage.setItem("username", username);
+            navigate("/userProfile");
+        }
+    } 
+    catch (err) {
+      setErrorMessage(err.message);
     }
+  }
 
-    // IF THE USER IS TRYING TO SIGN UP
-    if (isSignUp) {
-        title = "Create Account";
-        submitButtonText = "Sign Up"
-        toggleExistingAccText = "Already have an account?";
-        toggleButtonText = "Log In"
-        extraFields = (
-            <>
-                <li>
-                    <input type="email" placeholder="Email" />
-                </li>
-                <li>
-                    <input type = "password" placeholder="Verify password" />
-                </li>
-            </>
-        );
-    }
-    // user has an account
-    else {
-        title = "Welcome Back";
-        submitButtonText = "Log In";
-        toggleExistingAccText="Don't have an account?";
-        toggleButtonText="Sign up";
-    }
+  // CONDITIONAL HEADING TEXT
+  let headingText;
+  if (isSignUp) {
+    headingText = "Create Account";
+  } else {
+    headingText = "Welcome Back";
+  }
 
+  // CONDITIONAL FORM FIELDS FOR SIGNUP VS LOGIN
+  let extraFields = null;
+  if (isSignUp) {
+    extraFields = (
+      <>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Verify password"
+          value={verifyPassword}
+          onChange={(event) => setVerifyPassword(event.target.value)}
+          required
+        />
+      </>
+    );
+  }
+
+  // CONDITIONAL SUBMIT BUTTON TEXT
+  let submitButtonText;
+  if (isSignUp) {
+    submitButtonText = "Sign Up";
+  } else {
+    submitButtonText = "Log In";
+  }
+
+  // CONDITIONAL BOTTOM TEXT
+  let toggleText;
+  let toggleButtonText;
+  if (isSignUp) {
+    toggleText = "Already have an account?";
+    toggleButtonText = "Log In";
+  } else {
+    toggleText = "Don't have an account?";
+    toggleButtonText = "Sign Up";
+  }
+
+  // CONDITIONAL TITLE TEXT
+  let signInClass = "signIn";
+  if (isSignUp) {
+    signInClass += " signIn--large";
+  }
 
   return (
-    // list of user fields for sign in/log in 
     <div className={signInClass}>
-      <h1 style={{paddingBottom: "20px"}}>{title}</h1>
-       <ul className="profileList">
-            <li>
-                <input type="text" placeholder="Username" />
-            </li>
-            <li>
-                <input type="password" placeholder="Password"/>
-            </li>
+      <h1 style={{ paddingBottom: "20px" }}>{headingText}</h1>
 
-            {extraFields}
+      <form className="profileList" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          required
+        />
+        {extraFields}
 
-            <li>
-                <input
-                    type="button"
-                    value={submitButtonText}
-                    onClick={async () => {
+        <button type="submit">{submitButtonText}</button>
 
-                        const username = document.querySelector('input[placeholder="Username"]').value;
-                        const password = document.querySelector('input[placeholder="Password"]').value;
+        {errorMessage && (
+          <p className="error-text" style={{ color: "red", marginTop: "10px" }}>
+            {errorMessage}
+          </p>
+        )}
+      </form>
 
-                        let res;
-
-
-                        // USER IS CREATING AN ACCOUNT (ALSO AUOT LOGS THEM IN)
-                        if(isSignUp) {
-                            const email = document.querySelector('input[placeholder="Email"]').value;
-                            const vPassword = document.querySelector('input[placeholder="Verify password"]').value
-
-
-                            //  CHANGE THIS FROM AN ELERT TO RED TEXT WITHIN THE PASSWORDS BOX
-                            if (password != vPassword) {
-                                alert("❌ Passwords do not match");
-                                return;
-                            }
-                            
-                            // CREATES THE USER ACCOUNT
-                            res = await fetch("http://127.0.0.1:8000/createAcc", { 
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ username, password, email }),
-                            });
-
-                            const createResData = await res.json();
-
-                            if (!res.ok) {
-                                setErrorMessage(`❌ ${createResData.detail || "Signup failed"}`);
-                                return;
-                            }
-
-                            // NOW AUTO-LOGIN THE USER AFTER ACCOUNT CREATION
-                            const loginRes = await fetch("http://127.0.0.1:8000/auth/token", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({ username, password }),
-                            });
-
-                            const loginResData = await loginRes.json();
-
-                            if (!res.ok) {
-                                setErrorMessage(`❌ ${loginResData.detail || "Login failed"}`);
-                                return;
-                            }
-
-                            // Store session
-                            localStorage.setItem("access_token", loginResData.access_token);
-                            localStorage.setItem("username", username);
-
-                            alert(`✅ Account created and signed in!`);
-                            navigate("/userProfile");
-                        } 
-
-                        // USER IS LOGGING IN 
-                        else {
-                            res = await fetch("http://127.0.0.1:8000/auth/token", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({ username, password }),
-                            });
-
-                            const logInData = await res.json();
-
-                            if (!res.ok) {
-                                setErrorMessage(`❌ ${logInData.detail || "Invalid credentials"}`);
-                                return;
-                            }
-
-                            localStorage.setItem("access_token", logInData.access_token);
-                            localStorage.setItem("username", username);
-
-                            alert(`✅ Welcome back!`);
-                            navigate("/userProfile");
-                        }
-                    }}
-                />
-            </li>
-        </ul>
-
-        
-        <p className="accountCreate" style={{ marginTop: "10px" }}>
-        {toggleExistingAccText}{" "}
+      <p className="accountCreate" style={{ marginTop: "10px" }}>
+        {toggleText}{" "}
         <button
           type="button"
           className="accountCreateButton"
@@ -159,8 +168,6 @@ export default function signIn() {
           {toggleButtonText}
         </button>
       </p>
-        
-
     </div>
   );
 }

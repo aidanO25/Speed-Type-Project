@@ -14,20 +14,15 @@ export default function App() {
       {/* Keep your existing heading */}
       <div className="heading">
         <div className = "left-icons">
-          <h1 style={{ fontSize: "40px" }}>Logo</h1>
-          <Link to="/">
-            <img
-              src="https://static.thenounproject.com/png/3574480-200.png"
-              width="45"
-              alt="Home" //nothing alternative now, just placeholder
-            />
+          <Link to="/" style={{color: "black", textDecoration: "none"}}>
+            <h1 style={{ fontSize: "40px"}}>DevType</h1>
           </Link>
 
 
           <Link to="/settings">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Ic_settings_48px.svg/1024px-Ic_settings_48px.svg.png"
-              width="30"
+              width="39"
               alt="Home" //nothing alternative now, just placeholder
             />
           </Link>
@@ -37,7 +32,7 @@ export default function App() {
           <Link to="/signIn">
             <img
               src="https://static.thenounproject.com/png/638636-200.png"
-              width="40"
+              width="45"
               alt="Profile" //nothing alternative now, just placeholder
             />
           </Link>
