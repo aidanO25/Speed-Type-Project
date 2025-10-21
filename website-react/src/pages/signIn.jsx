@@ -1,9 +1,11 @@
 // src/pages/SignIn.jsx
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 export default function SignIn() {
   const navigate = useNavigate();
+   const { setIsLoggedIn } = useContext(AuthContext);
 
   // FORM STATE
   const [isSignUp, setIsSignUp] = useState(false);
@@ -47,8 +49,10 @@ export default function SignIn() {
             const loginData = await loginRes.json();
             if (!loginRes.ok) throw new Error(loginData.detail || "Login failed");
 
+            // SAVE THE TOKEN AND UPDATE LOGIN STATE
             localStorage.setItem("access_token", loginData.access_token);
             localStorage.setItem("username", username);
+            setIsLoggedIn(true);
             navigate("/userProfile");
         } 
         // REGULAR LOGIN
@@ -62,8 +66,10 @@ export default function SignIn() {
             const data = await res.json();
             if (!res.ok) throw new Error(data.detail || "Invalid credentials");
 
+            // SAVE TOKEN AND UPDATE LOGIN STATE
             localStorage.setItem("access_token", data.access_token);
             localStorage.setItem("username", username);
+            setIsLoggedIn(true);
             navigate("/userProfile");
         }
     } 

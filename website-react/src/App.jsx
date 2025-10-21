@@ -1,5 +1,7 @@
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./context";
 /* ---------------- imported pages ------------------- */
 import SignIn from "./pages/signIn.jsx";
 import Results from "./pages/results.jsx";
@@ -7,8 +9,12 @@ import TypingTest from "./pages/typingTest.jsx";
 import Profile from "./pages/userProfile.jsx";
 import Settings from "./pages/settings.jsx";
 
-// declaring a React component (whatever return(...) contains will be rendered to the screen)
 export default function App() {
+  
+  const { isLoggedIn } = useContext(AuthContext);
+  const profileLink = isLoggedIn ? "/userProfile" : "/signIn";
+
+
   return (
     <>
       {/* Keep your existing heading */}
@@ -28,8 +34,9 @@ export default function App() {
           </Link>
       </div>
 
+
         <div style={{ textAlign: "right" }}>
-          <Link to="/signIn">
+          <Link to={profileLink}>
             <img
               src="https://static.thenounproject.com/png/638636-200.png"
               width="45"
