@@ -204,29 +204,59 @@ export default function TypingTest() {
     }
 
     // function to take the user to the results page
-    function finishTest(finalTypedArray) {
+    
+    async function finishTest(finalTypedArray) {
       const endTime = Date.now();
       const durationMs = endTime - startTime;
       const timeTakenInSeconds = (durationMs / 1000).toFixed(2);
+      const accessToken = localStorage.getItem("access_token");
 
       let correct = 0;
       let incorrect = 0;
 
       for (let i = 0; i < chars.length; i++) {
         if (finalTypedArray[i] === chars[i]) {
-          correct ++;
+          correct++;
         } else {
-          incorrect ++;
+          incorrect++;
         }
       }
 
-      // navigate to the results page to display the information below
+      const wpm = ((correct / 5) / (timeTakenInSeconds / 60)).toFixed(2);
+      const accuracy = ((correct / chars.length) * 100).toFixed(2);
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/attemptLog", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            snippet_id: snippet?.id ?? null,
+            wpm,
+            accuracy,
+            duration_seconds: parseFloat(timeTakenInSeconds),
+            correct_characters: correct,
+            incorrect_characters: incorrect,
+          }),
+        });
+
+        if (!res.ok) throw new Error("Failed to log attempt");
+        const data = await res.json();
+        console.log("✅ Attempt logged:", data);
+      } catch (err) {
+        console.error("❌ Error logging attempt:", err);
+      }
+
+      // ✅ This now has access to defined `wpm`
       navigate("/results", {
         state: {
           totalChars: chars.length,
           correct,
           incorrect,
           completionTime: timeTakenInSeconds,
+          wpm,
         },
       });
     }
@@ -301,7 +331,7 @@ export default function TypingTest() {
       </div>
 
       {/* -------------- USER OPTIONS-------------- */}
-      < div className = "option-row">
+      <div className = "option-row">
 
               {/* LOAD SNIPPET BUTTON */}
               <button 
@@ -352,7 +382,6 @@ export default function TypingTest() {
                 <option value = "hard">hard</option>
 
               </select>
-
       </div>
 
       {err && <div style={{ marginTop: 8, color: "red" }}>{err}</div>}

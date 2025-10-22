@@ -1,8 +1,13 @@
 # server/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import snippets_router, auth_router, createAcc_router
 import logging
+from routes import (
+    snippets_router, 
+    auth_router, 
+    createAcc_router,
+    attemptLog_router
+)
 
 # for setting logging levels
 logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
@@ -23,6 +28,7 @@ app.add_middleware(
 app.include_router(snippets_router)
 app.include_router(auth_router)
 app.include_router(createAcc_router)
+app.include_router(attemptLog_router)
 
 @app.get("/")
 def read_root():
