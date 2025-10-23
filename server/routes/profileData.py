@@ -13,7 +13,7 @@ def test_profile_data():
 
 
 # GETS USER'S STATISTICS TO DISPLAY ON THE PROFILE PAGE 
-@router.post("/profileData")
+@router.get("/profileData")
 def get_profile_data(user: dict = Depends(get_current_user)):
     with ENGINE.connect() as conn:
 

@@ -17,9 +17,9 @@ export default function Profile() {
     const fetchProfileData = async() => {
       try {
         const response = await fetch ("http://localhost:8000/profileData/profileData", {
-          method: "POST",
+          method: "GET",
           headers: {
-            "Content-Type": "application.json",
+            "Content-Type": "application/json", 
             Authorization: `Bearer ${token}`,
           },
         });
@@ -57,35 +57,36 @@ export default function Profile() {
   };
 
   return (
-    <>
-      <p>This is the user profile page</p>
-      <p>Welcome, {profileData.username}</p>
+  <div className="profile-container">
+    <p className="profile-heading">User Profile</p>
+  
 
-      {/* FOR USER STATISTICS DATA */}
-      {(() => {
-        if (loading) {
-          return <p>Loading profile data...</p>;
-        }
+    {(() => {
+      if (loading) {
+        return <p className="profile-loading">Loading profile data...</p>;
+      }
 
-        if (error) {
-          return <p style={{ color: "red" }}>Error: {error}</p>;
-        }
+      if (error) {
+        return <p className="profile-error">Error: {error}</p>;
+      }
 
-        // DISPLAY THE USERS STATISTICAL DATA
-        if (profileData) {
-          return (
-            <div>
-              <p><strong>Average WPM:</strong> {profileData.avg_wpm}</p>
-              <p><strong>Best WPM:</strong> {profileData.best_wpm}</p>
-              <p><strong>Total Attempts:</strong> {profileData.total_attempts}</p>
-            </div>
-          );
-        }
+      if (profileData) {
+        return (
+          <div className="profile-stats">
+            <p>Welcome, {profileData.username}</p>
+            <p><strong>Average WPM:</strong> {profileData.avg_wpm}</p>
+            <p><strong>Best WPM:</strong> {profileData.best_wpm}</p>
+            <p><strong>Total Attempts:</strong> {profileData.total_attempts}</p>
+          </div>
+        );
+      }
 
-        return <p>No profile data available.</p>;
-      })()}
+      return <p>No profile data available.</p>;
+    })()}
 
-      <button onClick={handleLogout}>Log Out</button>
-    </>
-  );
+    <button onClick={handleLogout} style={{ marginTop: "20px" }}>
+      Log Out
+    </button>
+  </div>
+);
 }
