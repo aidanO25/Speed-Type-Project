@@ -6,7 +6,8 @@ from routes import (
     snippets_router, 
     auth_router, 
     createAcc_router,
-    attemptLog_router
+    attemptLog_router,
+    profileData_router
 )
 
 # for setting logging levels
@@ -29,6 +30,7 @@ app.include_router(snippets_router)
 app.include_router(auth_router)
 app.include_router(createAcc_router)
 app.include_router(attemptLog_router)
+app.include_router(profileData_router)
 
 @app.get("/")
 def read_root():

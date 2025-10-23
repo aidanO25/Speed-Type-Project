@@ -7,6 +7,7 @@ from datetime import timedelta
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
+#TO TEST THE ROUTE
 @router.get("/")
 def test_auth_route():
     return {"message": "Authentication route working!"}

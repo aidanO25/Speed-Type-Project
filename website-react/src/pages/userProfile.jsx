@@ -1,13 +1,54 @@
 // src/pages/userProfile.jsx
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const { setIsLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
-  const username = localStorage.getItem("username");
 
+  const [profileData, setProfileDate] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const token = localStorage.getItem("access_token");
+
+  useEffect(() => {
+    const fetchProfileData = async() => {
+      try {
+        const response = await fetch ("http://localhost:8000/profileData/profileData", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application.json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch profile data");
+        } 
+
+        const data = await response.json();
+        setProfileDate(data);
+      }
+      catch (err) {
+        console.error("❌ Error:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, [token]);
+
+
+
+
+
+
+
+  {/* USER LOG OUT */}
   const handleLogout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("username");
@@ -18,7 +59,31 @@ export default function Profile() {
   return (
     <>
       <p>This is the user profile page</p>
-      <p>Welcome, {username}</p>
+      <p>Welcome, {profileData.username}</p>
+
+      {/* FOR USER STATISTICS DATA */}
+      {(() => {
+        if (loading) {
+          return <p>Loading profile data...</p>;
+        }
+
+        if (error) {
+          return <p style={{ color: "red" }}>Error: {error}</p>;
+        }
+
+        // DISPLAY THE USERS STATISTICAL DATA
+        if (profileData) {
+          return (
+            <div>
+              <p><strong>Average WPM:</strong> {profileData.avg_wpm}</p>
+              <p><strong>Best WPM:</strong> {profileData.best_wpm}</p>
+              <p><strong>Total Attempts:</strong> {profileData.total_attempts}</p>
+            </div>
+          );
+        }
+
+        return <p>No profile data available.</p>;
+      })()}
 
       <button onClick={handleLogout}>Log Out</button>
     </>

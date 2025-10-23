@@ -6,6 +6,7 @@ from .security import hash_password
 
 router = APIRouter(prefix="/createAcc", tags=["AccCreation"])
 
+#TO TEST THE ROUTE
 @router.get("/")
 def test_auth_route():
     return {"message": "Account creation route working!"}

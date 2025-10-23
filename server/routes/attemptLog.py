@@ -9,6 +9,7 @@ from typing import Optional
 
 router = APIRouter(prefix = "/attemptLog", tags = ["Attempts"])
 
+#TO TEST THE ROUTE
 @router.get("/")
 def testAttemptLogRoute():
     return {"message": "attempt log route working"}
