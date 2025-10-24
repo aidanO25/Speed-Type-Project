@@ -23,7 +23,11 @@ def get_profile_data(user: dict = Depends(get_current_user)):
                     username,
                     avg_wpm,
                     best_wpm,
-                    total_attempts
+                    total_attempts,
+                    easy_best_wpm,
+                    medium_best_wpm,
+                    hard_best_wpm
+
                  FROM users
                  WHERE id = :user_id
             """),

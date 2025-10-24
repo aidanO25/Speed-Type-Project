@@ -58,9 +58,6 @@ export default function Profile() {
 
   return (
   <div className="profile-container">
-    <p className="profile-heading">User Profile</p>
-  
-
     {(() => {
       if (loading) {
         return <p className="profile-loading">Loading profile data...</p>;
@@ -73,10 +70,16 @@ export default function Profile() {
       if (profileData) {
         return (
           <div className="profile-stats">
-            <p>Welcome, {profileData.username}</p>
+            <p>Username: {profileData.username}</p>
+            <p><strong>Total Attempts:</strong> {profileData.total_attempts}</p>
+
             <p><strong>Average WPM:</strong> {profileData.avg_wpm}</p>
             <p><strong>Best WPM:</strong> {profileData.best_wpm}</p>
-            <p><strong>Total Attempts:</strong> {profileData.total_attempts}</p>
+
+
+            <p><strong>Easy WPM:</strong> {profileData.easy_best_wpm}</p>
+            <p><strong>Medium WPM:</strong> {profileData.medium_best_wpm}</p>
+            <p><strong>Hard WPM:</strong> {profileData.hard_best_wpm}</p>
           </div>
         );
       }
@@ -84,9 +87,18 @@ export default function Profile() {
       return <p>No profile data available.</p>;
     })()}
 
+
+
+
+
+
     <button onClick={handleLogout} style={{ marginTop: "20px" }}>
       Log Out
     </button>
+
+
+
+    
   </div>
 );
 }
