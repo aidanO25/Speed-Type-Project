@@ -23,6 +23,7 @@ class AttemptInput(BaseModel):
     duration_seconds: float
     correct_characters: int
     incorrect_characters: int 
+    difficultyLv: str # must be "easy", "medium", or "hard"
 
 
 # POST ROUTE
@@ -35,9 +36,8 @@ def logAttempt(
         user_id = user_data["id"]
 
         with ENGINE.connect() as conn:
-
             # INSERT THE USER'S LAST ATTEMPT INTO THE ATTEMPTS LOG
-            inster_query = text("""
+            insert_query = text("""
                 INSERT INTO userAttempts (
                     user_id,
                     snippet_id,
@@ -45,7 +45,8 @@ def logAttempt(
                     accuracy,
                     duration_seconds,
                     correct_characters,
-                    incorrect_characters
+                    incorrect_characters,
+                    difficultyLv
                 ) VALUES (
                     :user_id,
                     :snippet_id,
@@ -53,11 +54,12 @@ def logAttempt(
                     :accuracy,
                     :duration_seconds,
                     :correct_characters,
-                    :incorrect_characters
+                    :incorrect_characters,
+                    :difficultyLv
                 )
             """)
             
-            conn.execute(inster_query, {
+            conn.execute(insert_query, {
                 "user_id": user_id,
                 "snippet_id": data.snippet_id,
                 "wpm": data.wpm,
@@ -65,11 +67,22 @@ def logAttempt(
                 "duration_seconds": data.duration_seconds,
                 "correct_characters": data.correct_characters,
                 "incorrect_characters": data.incorrect_characters,
+                "difficultyLv": data.difficultyLv.lower(),
             })
 
+            # DETERMINE WHICH DIFFICULTY COLUMN TO UPDATE
+            difficulty_map = {
+                "easy": "easy_best_wpm",
+                "medium": "medium_best_wpm",
+                "hard": "hard_best_wpm"
+            }
+            difficulty_column = difficulty_map.get(data.difficultyLv.lower())
+            if difficulty_column is None:
+                raise HTTPException(status_code=400, detail="Invalid difficulty level")
 
-            # UPDATING THE USER'S PROFILE WITH THE PREVIOUSE ATTEMPT STATS
-            conn.execute(text("""
+
+            # DYNAMICALLY INSERT THE DIFFICULTY COLUMN INTO SQL
+            update_sql = f"""
                 UPDATE users
                 SET
                     total_attempts = COALESCE(total_attempts, 0) + 1,
@@ -81,9 +94,16 @@ def logAttempt(
                     best_wpm = GREATEST(
                         COALESCE(best_wpm, 0),
                         :current_wpm
+                    ),
+                    {difficulty_column} = GREATEST(
+                        COALESCE({difficulty_column}, 0), 
+                        :current_wpm
                     )
                 WHERE id = :user_id
-            """), {
+            """
+
+            # EXECUTE THE UPDATE WITH PARAMS
+            conn.execute(text(update_sql), {
                 "user_id": user_id,
                 "current_wpm": data.wpm
             })
@@ -91,6 +111,6 @@ def logAttempt(
             conn.commit()
 
         return {"message": "Attempt logged successfully"}
-    
+
     except Exception as e:
-        raise HTTPException(status_code = 500, detail = f"Error logging attempt: {e}")
+        raise HTTPException(status_code=500, detail=f"Error logging attempt: {e}")

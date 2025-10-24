@@ -58,6 +58,9 @@ export default function TypingTest() {
     }
   }
 
+  // FETCH A SNIPPET ONCE ON MOUNT
+  useEffect(() => { loadSnippet(); }, []);
+
   // LOGIC FOR CHANGING THE SNIPET LANGUAGE 
   const [language, setLanguage] = useState("python"); // select language (python default)
   const [difficulty, setDifficulty] = useState("all") // select the difficulty (default to any)
@@ -69,9 +72,6 @@ export default function TypingTest() {
   } else {
     buttonText = "load new";
   }
-
-  // fetch once on mount
-  useEffect(() => { loadSnippet(); }, []);
 
   // CHANGES THE SNIPPET PROGRAMMING LANGUAGE AND LOADS A NEW SNIPPET
   const handleLanguageChange = (e) => {
@@ -203,8 +203,9 @@ export default function TypingTest() {
       
     }
 
-    // function to take the user to the results page
-    
+
+    // FUNCTION TO END THE TEST AND BRING THE USER TO THE RESULTS PAGE. 
+    // ***NOTE*** -> We want to keep this on the client side. no reason to pull from the attempts table (another note for that, even if you wanted to, how could we keep track of that)
     async function finishTest(finalTypedArray) {
       const endTime = Date.now();
       const durationMs = endTime - startTime;
@@ -239,6 +240,7 @@ export default function TypingTest() {
             duration_seconds: parseFloat(timeTakenInSeconds),
             correct_characters: correct,
             incorrect_characters: incorrect,
+            difficultyLv: difficulty
           }),
         });
 
@@ -249,7 +251,7 @@ export default function TypingTest() {
         console.error("❌ Error logging attempt:", err);
       }
 
-      // ✅ This now has access to defined `wpm`
+      // AGAIN STORING THE TEST DATA ON THE CLIENT SIDE AND USING STATE TO "BRING THE DATA" TO THE RESULTS PAGE
       navigate("/results", {
         state: {
           totalChars: chars.length,
