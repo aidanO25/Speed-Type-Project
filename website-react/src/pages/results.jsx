@@ -9,6 +9,12 @@ export default function Results() {
   const correct = state?.correct ?? 0;
   const incorrect = state?.incorrect ?? 0;
   const completionTime = state?.completionTime ?? 0;
+  const wpm = state?.wpm ?? 0;
+  const accuracy = state?.accuracy ?? 100;
+
+  // CHECK IF THE USER IS LOGGED IN AND SHOW/HIDE THE "SIGN IN TO SAVE" LINK
+  const token = localStorage.getItem("access_token");
+
 
 
 
@@ -21,10 +27,13 @@ export default function Results() {
         <p>Correct: {correct}</p>
         <p>Incorrect: {incorrect}</p>
         <p>Total time: {completionTime}ms</p>
+        <p>WPM: {wpm}</p>
+        <p>Accuracy: {accuracy}%</p>
       </section>
 
-      {/* section to allow a user to sign in to save results */}
-      <p style={{ marginTop: "20px", fontSize: "16px" }}>
+      {/* SHOW / HIDE THE "SIGN IN TO SAVE PROGRESS" LINK */}
+      {!token && (
+        <p style={{ marginTop: "20px", fontSize: "16px" }}>
         <Link 
           to="/signIn" 
           style={{ 
@@ -37,6 +46,7 @@ export default function Results() {
         </Link>
         to save progress
       </p>
+      )}
 
 
     </>

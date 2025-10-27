@@ -259,6 +259,7 @@ export default function TypingTest() {
           incorrect,
           completionTime: timeTakenInSeconds,
           wpm,
+          accuracy
         },
       });
     }
