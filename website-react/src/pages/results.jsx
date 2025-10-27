@@ -1,5 +1,5 @@
 // src/pages/results.jsx
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 export default function Results() {
@@ -14,6 +14,8 @@ export default function Results() {
 
   // CHECK IF THE USER IS LOGGED IN AND SHOW/HIDE THE "SIGN IN TO SAVE" LINK
   const token = localStorage.getItem("access_token");
+
+  const navigate = useNavigate();
 
 
 
@@ -33,19 +35,16 @@ export default function Results() {
 
       {/* SHOW / HIDE THE "SIGN IN TO SAVE PROGRESS" LINK */}
       {!token && (
-        <p style={{ marginTop: "20px", fontSize: "16px" }}>
-        <Link 
+        <div style={{ marginTop: "20px", fontSize: "16px" }}>
+        <button
+          className="save-progress-button"
+          onClick={() => navigate("/signIn")}
           to="/signIn" 
-          style={{ 
-            color: "inherit", 
-            textDecoration: "none", 
-            fontWeight: "bold" 
-          }}>
+        >
 
-          Sign in {" "}
-        </Link>
-        to save progress
-      </p>
+          Sign in to save progress
+        </button>
+      </div>
       )}
 
 

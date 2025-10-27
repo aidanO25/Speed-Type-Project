@@ -144,6 +144,26 @@ h1 {
 
 
 
+.save-progress-button {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #007bff;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 40px;
+  width: 200px;
+}
+
+.save-progress-button:hover {
+  background-color: #0168d6;
+}
+
+
+
+
+
 
 
 /* THIS SECTION PERTAINS TO STYLING FOR CHARACTERS DURING TYPING TEST */
