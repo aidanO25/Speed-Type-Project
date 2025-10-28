@@ -71,25 +71,41 @@ export default function Profile() {
 
       if (profileData) {
         return (
-          <>
-            <div className="main-user-info">
-              <p>Username: {profileData.username}</p>
-            </div>
+    <div className="profile-container">
+      {/* Main Profile Section */}
+      <div className="profile-main">
+        <div className="profile-avatar">👤</div>
 
-            <div className="tbd">
-              
-              <p><strong>Total Attempts:</strong> {profileData.total_attempts}</p>
+        <div className="profile-info">
+          <h2>{profileData.username}</h2>
+          <p>Joined: {profileData.created_at}</p>
+          <p>Snippets Completed: {profileData.total_attempts}</p>
+        </div>
+      </div>
 
-              <p><strong>Average WPM:</strong> {profileData.avg_wpm}</p>
-              <p><strong>Best WPM:</strong> {profileData.best_wpm}</p>
+      <div className="user_profile_stat_linebreak">
 
 
-              <p><strong>Easy WPM:</strong> {profileData.easy_best_wpm}</p>
-              <p><strong>Medium WPM:</strong> {profileData.medium_best_wpm}</p>
-              <p><strong>Hard WPM:</strong> {profileData.hard_best_wpm}</p>
-              </div>
-            </>
-        );
+
+      </div>
+
+      {/* Horizontal Stats Row */}
+      <div className="profile-stats">
+        <div className="stat-card">
+          <h3>Easy WPM</h3>
+          <p>{profileData.easy_best_wpm}</p>
+        </div>
+        <div className="stat-card">
+          <h3>Medium WPM</h3>
+          <p>{profileData.medium_best_wpm}</p>
+        </div>
+        <div className="stat-card">
+          <h3>Hard WPM</h3>
+          <p>{profileData.hard_best_wpm}</p>
+        </div>
+      </div>
+    </div>
+  );
       }
 
       return <p>No profile data available.</p>;

@@ -21,6 +21,7 @@ def get_profile_data(user: dict = Depends(get_current_user)):
             text("""
                  SELECT
                     username,
+                    created_at,
                     avg_wpm,
                     best_wpm,
                     total_attempts,
@@ -33,6 +34,7 @@ def get_profile_data(user: dict = Depends(get_current_user)):
             """),
             {"user_id" :user["id"]}
         ).fetchone()
+
 
         if result is None:
             return {"error": "User not found"}

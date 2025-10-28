@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* was justify-content: center;. Will need to change the other pages to include that now */
   gap: 24px;
   padding: 85px 24px 24px 24px; /* top padding for fixed heading */
   box-sizing: border-box;
@@ -199,15 +199,105 @@ h1 {
 
 
 
-/* THIS SECITON IS FOR THE PROFILE PAGE STYLING */
+/* ----------------THIS SECITON IS FOR THE PROFILE PAGE STYLING---------------------------- */
 
-.main-user-info {
-  margin-top: 0px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 80%;
-  height: 40px;
-  background-color: #b81f1f;
+/* Container for the whole profile section */
 
-  
+.profile-container {
+  padding: 40px 20px;
+  margin: 0;                /* Remove auto-centering */
+  width: 100%;              /* Take full width */
+  max-width: none;          /* Remove max-width constraint if applied */
+  box-sizing: border-box;
+  padding-top: 70px;
+
+}
+
+
+/* Main profile card */
+.profile-main {
+  width: 100%;              /* Full width of parent */
+  display: flex;            /* Maintain horizontal layout */
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+
+  border-radius: 8px; 
+  background-color: rgba(0, 0, 0, 0.218);
+
+}
+
+/* Avatar section */
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  background-color: #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: #888;
+  flex-shrink: 0;
+}
+
+/* Expanded user info */
+.profile-info {
+  font-family: "Trebuchet MS", Helvetica, sans-serif; 
+  margin-left: 30px;
+  flex-grow: 1;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #222;
+}
+
+.profile-info p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Stats row */
+.profile-stats {
+  font-family: "Trebuchet MS", Helvetica, sans-serif; 
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* to break up the prifle "header" from the stat cards */
+.user_profile_stat_linebreak{
+  padding-top: 70px;
+}
+
+
+/* USER STAT CARDS */
+.stat-card {
+  font-family: "Trebuchet MS", Helvetica, sans-serif; 
+  flex: 1;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  padding-bottom: 90px;
+
+  background-color: rgba(0, 0, 0, 0.218);
+
+}
+
+.stat-card h3 {
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 18px;
+}
+
+.stat-card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
 }
