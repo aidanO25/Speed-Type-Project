@@ -143,7 +143,7 @@ h1 {
 
 
 
-
+/* STYLING FOR THE "SIGN IN TO SAVE PROGRESS" BUTTON ON THE RESULTS PAGE */
 .save-progress-button {
   color: white;
   text-decoration: none;
@@ -196,4 +196,18 @@ h1 {
 }
 
 
-/*
+
+
+
+/* THIS SECITON IS FOR THE PROFILE PAGE STYLING */
+
+.main-user-info {
+  margin-top: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 80%;
+  height: 40px;
+  background-color: #b81f1f;
+
+  
+}

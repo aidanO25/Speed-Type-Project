@@ -57,7 +57,7 @@ export default function Profile() {
   };
 
   return (
-  <div className="profile-container">
+  <>
     {(() => {
       if (loading) {
         return <p className="profile-loading">Loading profile data...</p>;
@@ -67,20 +67,28 @@ export default function Profile() {
         return <p className="profile-error">Error: {error}</p>;
       }
 
+
+
       if (profileData) {
         return (
-          <div className="profile-stats">
-            <p>Username: {profileData.username}</p>
-            <p><strong>Total Attempts:</strong> {profileData.total_attempts}</p>
+          <>
+            <div className="main-user-info">
+              <p>Username: {profileData.username}</p>
+            </div>
 
-            <p><strong>Average WPM:</strong> {profileData.avg_wpm}</p>
-            <p><strong>Best WPM:</strong> {profileData.best_wpm}</p>
+            <div className="tbd">
+              
+              <p><strong>Total Attempts:</strong> {profileData.total_attempts}</p>
+
+              <p><strong>Average WPM:</strong> {profileData.avg_wpm}</p>
+              <p><strong>Best WPM:</strong> {profileData.best_wpm}</p>
 
 
-            <p><strong>Easy WPM:</strong> {profileData.easy_best_wpm}</p>
-            <p><strong>Medium WPM:</strong> {profileData.medium_best_wpm}</p>
-            <p><strong>Hard WPM:</strong> {profileData.hard_best_wpm}</p>
-          </div>
+              <p><strong>Easy WPM:</strong> {profileData.easy_best_wpm}</p>
+              <p><strong>Medium WPM:</strong> {profileData.medium_best_wpm}</p>
+              <p><strong>Hard WPM:</strong> {profileData.hard_best_wpm}</p>
+              </div>
+            </>
         );
       }
 
@@ -98,7 +106,7 @@ export default function Profile() {
 
 
 
-    
-  </div>
+
+  </>
 );
 }
