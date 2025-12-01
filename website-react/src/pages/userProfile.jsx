@@ -1,7 +1,9 @@
 // src/pages/userProfile.jsx
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context";
+import { API_BASE } from "../config";
 import { useNavigate } from "react-router-dom";
+
 
 export default function Profile() {
   const { setIsLoggedIn } = useContext(AuthContext);
@@ -16,7 +18,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfileData = async() => {
       try {
-        const response = await fetch ("http://localhost:8000/profileData/profileData", {
+        const response = await fetch (`${API_BASE}/profileData/profileData`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json", 

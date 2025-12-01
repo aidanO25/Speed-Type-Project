@@ -1,6 +1,7 @@
 // src/pages/typingTest.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom"; //page navigation capability
+import { API_BASE } from "../config";
 /* ---------------- Typing Test Page ---------------- */
 export default function TypingTest() {
   // for navigation to results
@@ -42,7 +43,7 @@ export default function TypingTest() {
       const lang = typeof selectedLang === "string" ? selectedLang : language;
 
       const res = await fetch(
-        `http://127.0.0.1:8000/snippets/language?language=${encodeURIComponent(lang)}&difficulty=${difficulty}`
+        `${API_BASE}/snippets/language?language=${encodeURIComponent(lang)}&difficulty=${difficulty}`
       );
       if (!res.ok) throw new Error("Failed to fetch snippet");
       const data = await res.json();
@@ -88,7 +89,7 @@ export default function TypingTest() {
       setErr(null);
 
       const res = await fetch(
-        `http://127.0.0.1:8000/snippets/alterDifficulty?difficulty=${difficulty}&language=${language}`
+        `${API_BASE}/snippets/alterDifficulty?difficulty=${difficulty}&language=${language}`
       );
       if (!res.ok) throw new Error("Failed to fetch snippet");
       const data = await res.json();
@@ -227,7 +228,7 @@ export default function TypingTest() {
       const accuracy = ((correct / chars.length) * 100).toFixed(2);
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/attemptLog", {
+        const res = await fetch(`${API_BASE}/attemptLog`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -340,7 +341,7 @@ export default function TypingTest() {
               <button 
                 onClick={() => {
                   setLoading(true);
-                  fetch(`http://127.0.0.1:8000/snippets/alterDifficulty?difficulty=${difficulty}&language=${language}`)
+                  fetch(`${API_BASE}/snippets/alterDifficulty?difficulty=${difficulty}&language=${language}`)
                     .then((res) => res.json())
                     .then((data) => {
                       setSnippet(data); // <- full object

@@ -2,6 +2,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import { API_BASE } from "../config";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function SignIn() {
             }
 
             // CREATE ACCOUNT
-            const result = await fetch("http://127.0.0.1:8000/createAcc", {
+            const result = await fetch(`${API_BASE}/createAcc`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password, email }),
@@ -40,7 +41,7 @@ export default function SignIn() {
             if (!result.ok) throw new Error(createData.detail || "Signup failed");
 
             // AUTO LOGIN ONCE ACCOUNT CREATED
-            const loginRes = await fetch("http://127.0.0.1:8000/auth/token", {
+            const loginRes = await fetch(`${API_BASE}/auth/token`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
@@ -57,7 +58,7 @@ export default function SignIn() {
         } 
         // REGULAR LOGIN
         else {
-            const res = await fetch("http://127.0.0.1:8000/auth/token", {
+            const res = await fetch(`${API_BASE}/auth/token`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
