@@ -1,6 +1,7 @@
 # server/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from routes.snippets import router as snippets_router
 import logging
 from routes import (
     snippets_router, 
