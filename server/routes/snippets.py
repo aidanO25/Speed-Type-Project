@@ -20,7 +20,7 @@ def language_select(language: str = Query(None)):
             FROM codeSnippets
             WHERE isActive = 1 
             AND language = :language
-            ORDER BY RAND()
+            ORDER BY RANDOM()
             LIMIT 1
         """)
         params = {"language": language}
@@ -30,7 +30,7 @@ def language_select(language: str = Query(None)):
             SELECT id, language, snippet
             FROM codeSnippets
             WHERE isActive = 1
-            ORDER BY RAND()
+            ORDER BY RANDOM()
             LIMIT 1
         """)
 
@@ -61,7 +61,7 @@ def difficultyLv(
                 WHERE isActive = 1
                 AND difficultyLv = :difficulty
                 AND language = :language
-                ORDER BY RAND()
+                ORDER BY RANDOM()
                 LIMIT 1
             """)
             params = {"difficulty": difficulty, "language": language}
@@ -71,7 +71,7 @@ def difficultyLv(
                 FROM codeSnippets
                 WHERE isActive = 1
                 AND difficultyLv = :difficulty
-                ORDER BY RAND()
+                ORDER BY RANDOM()
                 LIMIT 1
             """)
             params = {"difficulty": difficulty}
@@ -82,7 +82,7 @@ def difficultyLv(
                 FROM codeSnippets
                 WHERE isActive = 1
                 AND language = :language
-                ORDER BY RAND()
+                ORDER BY RANDOM()
                 LIMIT 1
             """)
             params = {"language": language}
@@ -91,7 +91,7 @@ def difficultyLv(
                 SELECT id, language, snippet
                 FROM codeSnippets
                 WHERE isActive = 1
-                ORDER BY RAND()
+                ORDER BY RANDOM()
                 LIMIT 1
             """)
             params = {}
