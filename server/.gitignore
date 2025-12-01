@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+.env.*
+
+# IDE stuff
+.vscode/
+.idea/
+
+# PyInstaller
+dist/
+build/
+
+# Local databases
+*.sqlite3
+
+# macOS junk
+.DS_Store
+
+# Logs
+*.log

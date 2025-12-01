@@ -6,7 +6,6 @@ from db import ENGINE
 router = APIRouter(prefix="/snippets", tags=["Snippets"])
 
 
-
 # get a new snippet for the set language
 @router.get("/language")
 def language_select(language: str = Query(None)):
