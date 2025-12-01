@@ -1,20 +1,12 @@
 # server/db.py
 from sqlalchemy import create_engine
-from sqlalchemy.engine import URL
 
-DATABASE_URL = URL.create(
-    "mysql+pymysql",
-    username="root",
-    password="aidan-2003",  # consider env vars later
-    host="127.0.0.1",
-    port=3306,
-    database="speedCoder",
-    query={"charset": "utf8mb4"},
-)
+# SQLite file in the same directory as main.py / db.py
+DATABASE_URL = "sqlite:///./speedCoder.db"
 
 ENGINE = create_engine(
     DATABASE_URL,
-    pool_pre_ping=True,
-    echo=True,
+    connect_args={"check_same_thread": False},
+    echo=True,   # logs SQL; you can set to False later if noisy
     future=True,
 )
