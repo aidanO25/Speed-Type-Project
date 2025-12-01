@@ -16,11 +16,16 @@ logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:5173",          # local dev frontend
+    "https://speed-coder.onrender.com",  # same origin as backend (harmless)
+    # later we'll add your Vercel URL here
+]
+
 # CORS (React dev server)
 app.add_middleware(
     CORSMiddleware,
-    #allow_origins=["http://localhost:5173"]
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
