@@ -32,7 +32,7 @@ app.add_middleware(
 )
 
 # include routers
-app.include_router(snippets_router)
+app.include_router(snippets_router, prefix="/snippets")
 app.include_router(auth_router)
 app.include_router(createAcc_router)
 app.include_router(attemptLog_router)

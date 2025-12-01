@@ -5,6 +5,10 @@ from db import ENGINE
 
 router = APIRouter(prefix="/snippets", tags=["Snippets"])
 
+@router.get("/")
+def read_root():
+    return {"message": "Hello, snippets is working!"}
+
 
 # get a new snippet for the set language
 @router.get("/language")
