@@ -11,11 +11,9 @@ See below for more information on my build.
 
 
 ### Current Issues
-'''
 - Newly created user accounts can sign in and out once created, however on server refresh they can not. It's as accounts created during last server refresh are wipped
 - User's completed snippet hisotry are not loading rendering in profile page
 - Need to avoid using eval() due to Google's Content Security Policy. Havn't investigated the occurences of it/what it afftects
-'''
 
 ### Front-end 
 - React.js
