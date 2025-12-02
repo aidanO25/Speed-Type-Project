@@ -18,20 +18,17 @@ See below for more information on my build.
 '''
 
 ### Front-end 
-'''
 - React.js
 - JavaScript
 - HTML
 - CSS
 - Vercel (for hosting)
-'''
 
 ### Back-end:
-'''
 - Python
 - FastAPI
 - SQLITE (originally in MySQL)
 - Uvicorn
 - Render (for hosting)
-'''
+
 
