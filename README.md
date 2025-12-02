@@ -10,7 +10,7 @@ This web development project is one which I've been working on for some time wit
 See below for more information on my build.
 
 
-## Current Issues
+### Current Issues
 '''
 - Newly created user accounts can sign in and out once created, however on server refresh they can not. It's as accounts created during last server refresh are wipped
 - User's completed snippet hisotry are not loading rendering in profile page
