@@ -20,6 +20,7 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",          # local dev frontend
     "https://speed-coder.onrender.com",  # same origin as backend (harmless)
+    "https://speed-type-project.vercel.app" # live frontend
     # later we'll add your Vercel URL here
 ]
 
