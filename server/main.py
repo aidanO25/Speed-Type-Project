@@ -17,6 +17,12 @@ logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
 
 app = FastAPI()
 
+from init_db import initialize_db
+@app.get("/init-db")
+def init_db_route():
+    initialize_db()
+    return {"message": "DB initialized"}
+
 origins = [
     "http://localhost:5173",          # local dev frontend
     "https://speed-coder.onrender.com",  # same origin as backend (harmless)
