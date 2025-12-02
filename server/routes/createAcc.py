@@ -14,10 +14,13 @@ def test_auth_route():
 
 @router.post("")
 async def addUser(request: Request):
+    
     data = await request.json()
     username = data.get("username")
     password = data.get("password")
     email = data.get("email")
+
+    print("📥 Received account creation:", username, email)
 
     if not username or not password or not email:
         raise HTTPException(status_code=400, detail="Missing username, password, or email")
