@@ -14,6 +14,7 @@ See below for more information on my build.
 - Newly created user accounts can sign in and out once created, however on server refresh they can not. It's as accounts created during last server refresh are wipped
 - User's completed snippet hisotry are not loading rendering in profile page
 - Need to avoid using eval() due to Google's Content Security Policy. Havn't investigated the occurences of it/what it afftects
+- Still working on the full SQL to SQLite migration, so there are not as many snippets as there were before, nor the format I prefer. 
 
 ### Front-end 
 - React.js
