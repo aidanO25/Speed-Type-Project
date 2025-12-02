@@ -1,12 +1,12 @@
 # server/db.py
 from sqlalchemy import create_engine
 
-# SQLite file in the same directory as main.py / db.py
-DATABASE_URL = "sqlite:///./speedCoder.db"
+# PostgreSQL database hosted on Render
+DATABASE_URL = "postgresql+psycopg2://monk:6WiswBn4diAPPKAEtro570fqPGaIFNXm@dpg-d4nlupogjchc73btiv3g-a/speedcoderdb"
+
 
 ENGINE = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread": False},
-    echo=True,   # logs SQL; you can set to False later if noisy
-    future=True,
+    echo=True,    # shows SQL logs
+    future=True   # use modern SQLAlchemy features
 )
