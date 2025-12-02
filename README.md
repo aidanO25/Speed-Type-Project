@@ -1,6 +1,6 @@
 # Speed Type Project
 
-View [the site] (https://speed-type-project.vercel.app/)
+View [[the site](https://speed-type-project.vercel.app/)]
 
 --------------------------------------------------
 
