@@ -80,17 +80,21 @@ def logAttempt(
             if difficulty_column is None:
                 raise HTTPException(status_code=400, detail="Invalid difficulty level")
 
+            #manually calculating the avg wpm
+            avg_wpm_query = text("""
+                SELECT AVG(wpm)
+                FROM userAttempts
+                WHERE user_id = :user_id
+            """)
+            avg_result = conn.execute(avg_wpm_query, {"user_id": user_id}).fetchone()
+            avg_wpm = avg_result[0] if avg_result and avg_result[0] is not None else 0
 
             # DYNAMICALLY INSERT THE DIFFICULTY COLUMN INTO SQL
             update_sql = f"""
                 UPDATE users
                 SET
                     total_attempts = COALESCE(total_attempts, 0) + 1,
-                    avg_wpm = (
-                        SELECT AVG(wpm)
-                        FROM userAttempts
-                        WHERE user_id = :user_id
-                    ),
+                    avg_wpm = :avg_wpm,
                     best_wpm = GREATEST(
                         COALESCE(best_wpm, 0),
                         :current_wpm
@@ -105,7 +109,8 @@ def logAttempt(
             # EXECUTE THE UPDATE WITH PARAMS
             conn.execute(text(update_sql), {
                 "user_id": user_id,
-                "current_wpm": data.wpm
+                "current_wpm": data.wpm,
+                "avg_wpm": avg_wpm  
             })
 
             conn.commit()

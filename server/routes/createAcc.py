@@ -20,7 +20,7 @@ async def addUser(request: Request):
     password = data.get("password")
     email = data.get("email")
 
-    print("📥 Received account creation:", username, email)
+    #vprint("Received account creation:", username, email) --> commented out as this was for debug and may be good to keep in for future
 
     if not username or not password or not email:
         raise HTTPException(status_code=400, detail="Missing username, password, or email")
