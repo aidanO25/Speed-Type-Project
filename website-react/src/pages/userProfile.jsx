@@ -57,6 +57,16 @@ export default function Profile() {
         if (error) return <p className="profile-error">Error: {error}</p>;
         if (!profileData) return <p>No profile data available.</p>;
 
+
+        // data formating
+        const rawDate = profileData.created_at;
+        const formattedDate = new Date(rawDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        });
+
+
         return (
           <div className="profile-container">
 
@@ -66,7 +76,7 @@ export default function Profile() {
 
               <div className="profile-info">
                 <h2>{profileData.username}</h2>
-                <p>Joined: {profileData.created_at}</p>
+                <p>Joined: {formattedDate}</p>
                 <p>Snippets Completed: {profileData.total_attempts}</p>
               </div>
             </div>
