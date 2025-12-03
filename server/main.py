@@ -17,11 +17,14 @@ logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
 
 app = FastAPI()
 
+#below i commented out the postgresql commands as i could use the file for insters or anything related to accessing the database
+'''
 from init_db import initialize_db
 @app.get("/init-db")
 def init_db_route():
     initialize_db()
     return {"message": "DB initialized"}
+'''
 
 origins = [
     "http://localhost:5173",          # local dev frontend

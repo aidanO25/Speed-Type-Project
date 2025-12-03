@@ -18,34 +18,32 @@ def language_select(language: str = Query(None)):
         sql = text("""
             SELECT id, language, snippet
             FROM codeSnippets
-            WHERE isActive = 1 
+            WHERE isActive = TRUE
             AND language = :language
             ORDER BY RANDOM()
             LIMIT 1
         """)
         params = {"language": language}
-
     else:
         sql = text("""
             SELECT id, language, snippet
             FROM codeSnippets
-            WHERE isActive = 1
+            WHERE isActive = TRUE
             ORDER BY RANDOM()
             LIMIT 1
         """)
+        params = {}
 
     with ENGINE.connect() as conn:
-        if language:
-            row = conn.execute(sql, {"language": language}).mappings().first()
-        else:
-            row = conn.execute(sql).mappings().first()
+        row = conn.execute(sql, params).mappings().first()
+
     if not row:
         raise HTTPException(status_code=404, detail="No active snippet found")
     return {
         "id": row["id"], 
         "language": row["language"], 
-        "snippet": row["snippet"]}
-
+        "snippet": row["snippet"]
+    }
 
 # gets snippets based on their difficulty level
 @router.get("/alterDifficulty")
@@ -58,7 +56,7 @@ def difficultyLv(
             sql = text("""
                 SELECT id, language, snippet
                 FROM codeSnippets
-                WHERE isActive = 1
+                WHERE isActive = TRUE
                 AND difficultyLv = :difficulty
                 AND language = :language
                 ORDER BY RANDOM()
@@ -69,7 +67,7 @@ def difficultyLv(
             sql = text("""
                 SELECT id, language, snippet
                 FROM codeSnippets
-                WHERE isActive = 1
+                WHERE isActive = TRUE
                 AND difficultyLv = :difficulty
                 ORDER BY RANDOM()
                 LIMIT 1
@@ -80,7 +78,7 @@ def difficultyLv(
             sql = text("""
                 SELECT id, language, snippet
                 FROM codeSnippets
-                WHERE isActive = 1
+                WHERE isActive = TRUE
                 AND language = :language
                 ORDER BY RANDOM()
                 LIMIT 1
@@ -90,7 +88,7 @@ def difficultyLv(
             sql = text("""
                 SELECT id, language, snippet
                 FROM codeSnippets
-                WHERE isActive = 1
+                WHERE isActive = TRUE
                 ORDER BY RANDOM()
                 LIMIT 1
             """)
