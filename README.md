@@ -10,11 +10,10 @@ This web development project is one which I've been working on for some time wit
 See below for more information on my build.
 
 
-### Current Issues
-- Newly created user accounts can sign in and out once created, however on server refresh they can not. It's as accounts created during last server refresh are wipped
-- User's completed snippet hisotry are not loading rendering in profile page
+### Current Roadblocks
 - Need to avoid using eval() due to Google's Content Security Policy. Havn't investigated the occurences of it/what it afftects
-- Still working on the full SQL to SQLite migration, so there are not as many snippets as there were before, nor the format I prefer. 
+- Still working on the full MySQL to PostgreSQL migration, so there are not as many snippets as there were before, nor the format I prefer.
+- There's some minor formatting issues that I need fixed, but that's minor
 
 ### Front-end 
 - React.js
@@ -25,9 +24,9 @@ See below for more information on my build.
 
 ### Back-end:
 - Python
-- FastAPI
-- SQLITE (originally in MySQL)
-- Uvicorn
+- FastAPI 
+- PostgreSQL (originally in MySQL)
+- Uvicorn (server that runs and serves the FastAPI app
 - Render (for hosting)
 
 
