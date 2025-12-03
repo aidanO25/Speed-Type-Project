@@ -26,6 +26,7 @@ def init_db_route():
     return {"message": "DB initialized"}
 '''
 
+
 origins = [
     "http://localhost:5173",          # local dev frontend
     "https://speed-coder.onrender.com",  # same origin as backend (harmless)
