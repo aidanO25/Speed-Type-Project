@@ -34,7 +34,7 @@ def logAttempt(
     try:
         user_id = user_data["id"]
 
-        with ENGINE.connect() as conn:
+        with ENGINE.begin() as conn:
 
             # INSERT THE USER'S LAST ATTEMPT INTO THE ATTEMPTS LOG
             # NOTE: PostgreSQL lowercases identifiers unless quoted, so the actual column is "difficultylv"
@@ -47,7 +47,7 @@ def logAttempt(
                     duration_seconds,
                     correct_characters,
                     incorrect_characters,
-                    difficultylv
+                    "difficultyLv"
                 ) VALUES (
                     :user_id,
                     :snippet_id,
@@ -109,9 +109,11 @@ def logAttempt(
                 "avg_wpm": avg_wpm
             })
 
-            conn.commit()
 
         return {"message": "Attempt logged successfully"}
+
+    except HTTPException as http_exc:
+        raise http_exc  # ← preserve clean 400 errors
 
     except Exception as e:
         import traceback

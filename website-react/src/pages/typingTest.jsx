@@ -241,15 +241,15 @@ export default function TypingTest() {
             duration_seconds: parseFloat(timeTakenInSeconds),
             correct_characters: correct,
             incorrect_characters: incorrect,
-            difficultyLv: difficulty
+            difficultyLv: ['easy', 'medium', 'hard'].includes(difficulty) ? difficulty : 'easy'
           }),
         });
 
         if (!res.ok) throw new Error("Failed to log attempt");
         const data = await res.json();
-        console.log("✅ Attempt logged:", data);
+        console.log("Attempt logged:", data);
       } catch (err) {
-        console.error("❌ Error logging attempt:", err);
+        console.error("Error logging attempt:", err);
       }
 
       // AGAIN STORING THE TEST DATA ON THE CLIENT SIDE AND USING STATE TO "BRING THE DATA" TO THE RESULTS PAGE
