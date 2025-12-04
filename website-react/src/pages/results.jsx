@@ -17,27 +17,36 @@ export default function Results() {
 
   const navigate = useNavigate();
 
-  let userPrompt = null;
-  if (!token) {
+  let userPrompt;
+
+  if (token) {
     userPrompt = (
-      <button className="snippet-options"
-        onClick={() => navigate("/signIn")}
-      >
-        Sign in to save progress
-      </button>
-    );
-  } 
-  else {
-    userPrompt = (
-      <button className="snippet-options"
+      <button
+        className="snippet-options"
         onClick={() => navigate("/")}
       >
         Try again
       </button>
+    );
+  } else {
+    userPrompt = (
+      <div className="option-row">
+        <button
+          className="snippet-options"
+          onClick={() => navigate("/signIn")}
+        >
+          Sign in to save your result
+        </button>
 
-    )
+        <button
+          className="snippet-options"
+          onClick={() => navigate("/")}
+        >
+          Try again
+        </button>
+      </div>
+    );
   }
-
 
 
 
@@ -56,7 +65,9 @@ export default function Results() {
 
       {/* SHOW / HIDE THE "SIGN IN TO SAVE PROGRESS" OR TRY AGAIN LINK. appears differently depending if they are signed in or not*/}
       
-      {userPrompt}
+      <div style={{ marginTop: "20px" }}>
+        {userPrompt}
+      </div>
 
 
 
