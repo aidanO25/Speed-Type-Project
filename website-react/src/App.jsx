@@ -21,7 +21,7 @@ export default function App() {
       <div className="heading">
         <div className = "left-icons">
           <Link to="/" style={{color: "black", textDecoration: "none"}}>
-            <h1 style={{ fontSize: "40px"}}>DevType</h1>
+            <h1 style={{ fontSize: "40px"}}>Speed Coder</h1>
           </Link>
 
 

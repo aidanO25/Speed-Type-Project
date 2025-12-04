@@ -280,7 +280,7 @@ export default function TypingTest() {
 
   return (
     <>
-      <h1>DevType</h1>
+      <h1>Complete the snippet</h1>
 
       {/* -------------- TYPING AREA-------------- */}
       <div className="my-box">
