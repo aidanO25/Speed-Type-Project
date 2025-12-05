@@ -25,13 +25,16 @@ export default function Profile() {
           },
         });
 
-        if (!response.ok) throw new Error("Failed to fetch profile data");
+        /* This is more of a bandaid at the moment. If the user was signed in previously and their toek expired 
+        the error would be throw. I figued if that happens we just send them back to the signIn page if they try to access
+        the profileData*/
+        if (!response.ok) throw new Error(navigate("/signIn"));
 
         const data = await response.json();
         setProfileData(data);
 
       } catch (err) {
-        console.error("❌ Error:", err);
+        console.error("Error:", err);
         setError(err.message);
 
       } finally {

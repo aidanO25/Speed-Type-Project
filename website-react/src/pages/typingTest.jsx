@@ -19,7 +19,7 @@ export default function TypingTest() {
     targetText = snippet.snippet;
   } else {
     if (loading) {
-      targetText = "Loading...";
+      targetText = "Loading... Backend cold starting";
     } else {
       targetText = "Error loading snippet";
     }
