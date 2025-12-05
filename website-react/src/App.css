@@ -1,12 +1,14 @@
+/* App.css */
 .main-aspect {
-  min-height: 100vh;
+  min-height: 100vh; /*ensures a minimum height on the main page */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* was justify-content: center;. Will need to change the other pages to include that now */
+  justify-content: flex-start; 
   gap: 24px;
-  padding: 85px 24px 24px 24px; /* top padding for fixed heading */
+  padding: 85px 24px 24px 24px; 
   box-sizing: border-box;
+  padding-top: 35vh;
 }
 
 h1 { 
@@ -26,8 +28,6 @@ h1 {
   border-radius: 8px; 
   border-color: #007bff;
 
-
-  /* Flexibly size with respect to screen width */
   width: 100%;              /* Take up full available width */
   max-width: 700px;         /* Don’t stretch beyond 700px */
   min-width: 300px;         /* Don’t shrink smaller than 300px */
@@ -300,4 +300,18 @@ h1 {
   font-size: 24px;
   font-weight: bold;
   color: #111;
+}
+
+/* App.css */
+.signIn-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Cancel the parent's padding-top (85px) and pull content up */
+  margin-top: -85px; 
+  /* Set the height to 100vh minus the total padding (85px + 24px = 109px) 
+     This ensures the wrapper fits exactly inside the 100vh viewport without causing a scroll */
+
+  width: 100%; 
+  box-sizing: border-box;
 }

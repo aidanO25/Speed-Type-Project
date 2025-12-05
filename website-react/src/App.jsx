@@ -47,15 +47,13 @@ export default function App() {
       </div>
 
       {/* Page routes */}
-      <div className="main-aspect">
-          <Routes>
-            <Route path="/" element={<TypingTest />} /> 
-            <Route path="/signIn" element={<SignIn />} />
-            <Route path="/results" element={<Results />} />
-            <Route path="/userProfile" element={<Profile />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-      </div>
+        <Routes>
+          <Route path="/" element={<TypingTest />} /> 
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/results" element={<Results />} />
+          <Route path="/userProfile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
     </>
   );
 }

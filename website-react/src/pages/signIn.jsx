@@ -137,45 +137,49 @@ export default function SignIn() {
   }
 
   return (
-    <div className={signInClass}>
-      <h1 style={{ paddingBottom: "20px" }}>{headingText}</h1>
+    <div className="main-aspect">
+      <div className="signIn-wrapper">
+      <div className={signInClass}>
+        <h1 style={{ paddingBottom: "20px" }}>{headingText}</h1>
 
-      <form className="profileList" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-        {extraFields}
+        <form className="profileList" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+          {extraFields}
 
-        <button type="submit">{submitButtonText}</button>
+          <button type="submit">{submitButtonText}</button>
 
-        {errorMessage && (
-          <p className="error-text" style={{ color: "red", marginTop: "10px" }}>
-            {errorMessage}
-          </p>
-        )}
-      </form>
+          {errorMessage && (
+            <p className="error-text" style={{ color: "red", marginTop: "10px" }}>
+              {errorMessage}
+            </p>
+          )}
+        </form>
 
-      <p className="accountCreate" style={{ marginTop: "10px" }}>
-        {toggleText}{" "}
-        <button
-          type="button"
-          className="accountCreateButton"
-          onClick={() => setIsSignUp(!isSignUp)}
-        >
-          {toggleButtonText}
-        </button>
-      </p>
+        <p className="accountCreate" style={{ marginTop: "10px" }}>
+          {toggleText}{" "}
+          <button
+            type="button"
+            className="accountCreateButton"
+            onClick={() => setIsSignUp(!isSignUp)}
+          >
+            {toggleButtonText}
+          </button>
+        </p>
+      </div>
     </div>
+  </div>
   );
 }

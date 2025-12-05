@@ -52,27 +52,28 @@ export default function Results() {
 
   return (
     <>
-      <section className="my-box">
-        <h1>Results</h1>
+      <div className="main-aspect">
+        <section className="my-box">
+          <h1>Results</h1>
 
-        <p>Total characters: {totalChars}</p>
-        <p>Correct: {correct}</p>
-        <p>Incorrect: {incorrect}</p>
-        <p>Total time: {completionTime}ms</p>
-        <p>WPM: {wpm}</p>
-        <p>Accuracy: {accuracy}%</p>
-      </section>
+          <p>Total characters: {totalChars}</p>
+          <p>Correct: {correct}</p>
+          <p>Incorrect: {incorrect}</p>
+          <p>Total time: {completionTime}ms</p>
+          <p>WPM: {wpm}</p>
+          <p>Accuracy: {accuracy}%</p>
+        </section>
 
-      {/* SHOW / HIDE THE "SIGN IN TO SAVE PROGRESS" OR TRY AGAIN LINK. appears differently depending if they are signed in or not*/}
-      
-      <div style={{ marginTop: "20px" }}>
-        {userPrompt}
+        {/* SHOW / HIDE THE "SIGN IN TO SAVE PROGRESS" OR TRY AGAIN LINK. appears differently depending if they are signed in or not*/}
+        
+        <div style={{ marginTop: "20px" }}>
+          {userPrompt}
+        </div>
+
+
+
+
       </div>
-
-
-
-
-
     </>
   );
 }

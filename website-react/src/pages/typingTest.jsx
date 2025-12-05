@@ -280,6 +280,7 @@ export default function TypingTest() {
 
   return (
     <>
+    <div className="main-aspect">
       <h1>Complete the snippet</h1>
 
       {/* -------------- TYPING AREA-------------- */}
@@ -389,6 +390,7 @@ export default function TypingTest() {
       </div>
 
       {err && <div style={{ marginTop: 8, color: "red" }}>{err}</div>}
+      </div>
     </>
   );
 }
