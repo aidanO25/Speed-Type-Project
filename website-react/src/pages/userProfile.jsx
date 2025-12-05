@@ -107,9 +107,11 @@ export default function Profile() {
         );
       })()}
 
-      <button onClick={handleLogout} style={{ marginTop: "20px" }}>
-        Log Out
-      </button>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+        <button className="snippet-options" onClick={handleLogout}>
+          Log Out
+        </button>
+      </div>
     </>
   );
 }

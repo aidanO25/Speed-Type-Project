@@ -19,6 +19,14 @@ h1 {
   
 }
 
+h2 { 
+  font-family: "Trebuchet MS", Helvetica, sans-serif; 
+  text-align: center; 
+  margin: 0;
+  font-size: 35px;
+  
+}
+
 .my-box { 
   width: 500px; 
   background: #e3e3e3;
@@ -209,7 +217,7 @@ h1 {
   width: 100%;              /* Take full width */
   max-width: none;          /* Remove max-width constraint if applied */
   box-sizing: border-box;
-  padding-top: 70px;
+  padding-top: 150px;
 
 }
 

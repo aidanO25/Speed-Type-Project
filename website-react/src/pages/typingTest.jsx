@@ -281,7 +281,7 @@ export default function TypingTest() {
   return (
     <>
     <div className="main-aspect">
-      <h1>Complete the snippet</h1>
+      <h2>Complete the snippet</h2>
 
       {/* -------------- TYPING AREA-------------- */}
       <div className="my-box">
