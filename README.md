@@ -12,7 +12,7 @@ See below for more information on my build.
 
 ### Current Roadblocks
 - Need to avoid using eval() due to Google's Content Security Policy. Havn't investigated the occurences of it/what it afftects
-- I need to ensure a completeed snippet is added to the user's profile if they choose to sign in after completing the previouse snippet
+- I need to ensure that the WPM displayed for all levels is stored correctly
 - Still working on the full MySQL to PostgreSQL migration, so there are not as many snippets as there were before, nor the format I prefer.
 - There's some minor formatting issues that I need fixed, but that's minor
 
